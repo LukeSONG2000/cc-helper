@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Notification": [{
+      "hooks": [{
+        "type": "command",
+        "command": "powershell.exe -c \"(New-Object Media.SoundPlayer \\\"$env:USERPROFILE\\.claude\\tools\\claude-code-notifications\\sounds\\message.wav\\\").PlaySync()\""
+      }]
+    }],
+    "Stop": [{
+      "hooks": [{
+        "type": "command",
+        "command": "powershell.exe -c \"(New-Object Media.SoundPlayer \\\"$env:USERPROFILE\\.claude\\tools\\claude-code-notifications\\sounds\\complete.wav\\\").PlaySync()\""
+      }]
+    }]
+  }
+}

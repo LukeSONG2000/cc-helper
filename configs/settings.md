@@ -84,7 +84,47 @@ claude --dangerously-skip-permissions
 
 ---
 
-## 四、完整配置示例
+## 四、Hooks 配置（提示音）
+
+Hooks 用于在特定事件时执行命令，常用于播放提示音。
+
+### 4.1 安装通知工具
+
+推荐使用 Freedesktop 音效配置，详见 [tools/claude-code-notifications](../tools/claude-code-notifications/README.md)。
+
+### 4.2 快速配置
+
+**Freedesktop 音效（推荐）**：
+```bash
+# 复制工具文件
+cp -r tools/claude-code-notifications ~/.claude/tools/
+
+# 将 configs/custom.*.json 中的 hooks 配置添加到 settings.json
+```
+
+**系统声音（无需额外文件）**：
+```json
+{
+  "hooks": {
+    "Notification": [{
+      "hooks": [{
+        "type": "command",
+        "command": "powershell.exe -c \"[System.Media.SystemSounds]::Exclamation.Play()\""
+      }]
+    }],
+    "Stop": [{
+      "hooks": [{
+        "type": "command",
+        "command": "powershell.exe -c \"[System.Media.SystemSounds]::Asterisk.Play()\""
+      }]
+    }]
+  }
+}
+```
+
+---
+
+## 五、完整配置示例
 
 ```json
 {
@@ -107,22 +147,23 @@ claude --dangerously-skip-permissions
     "deny": []
   },
   "skipDangerousModePermissionPrompt": true,
-  "hooks": {
-    "Notification": [{
-      "hooks": [{
-        "type": "command",
-        "command": "paplay /usr/share/sounds/freedesktop/stereo/message.oga"
-      }]
-    }],
-    "Stop": [{
-      "hooks": [{
-        "type": "command",
-        "command": "paplay /usr/share/sounds/freedesktop/stereo/complete.oga"
-      }]
-    }]
+  "mcpServers": {
+    "git": {
+      "command": "npx",
+      "args": ["-y", "git-mcp-server"]
+    }
   }
 }
 ```
+
+---
+
+## 六、相关配置
+
+| 配置 | 说明 |
+|------|------|
+| [GitHub 配置](github/README.md) | Token 创建、MCP Git 服务 |
+| [通知工具](../tools/claude-code-notifications/README.md) | Freedesktop 提示音 |
 
 ---
 
@@ -130,4 +171,5 @@ claude --dangerously-skip-permissions
 
 | 日期 | 内容 |
 |------|------|
+| 2026-02-26 | 添加 Hooks 配置说明，重构文档结构 |
 | 2026-02-21 | 初始化配置文档 |

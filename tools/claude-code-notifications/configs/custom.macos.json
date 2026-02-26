@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Notification": [{
+      "hooks": [{
+        "type": "command",
+        "command": "afplay \"$HOME/.claude/tools/notifications/sounds/orb.ogg\""
+      }]
+    }],
+    "Stop": [{
+      "hooks": [{
+        "type": "command",
+        "command": "afplay \"$HOME/.claude/tools/notifications/sounds/pop.ogg\""
+      }]
+    }]
+  }
+}
