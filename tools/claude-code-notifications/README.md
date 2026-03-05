@@ -8,18 +8,18 @@
 
 ## 配置选项
 
-### Freedesktop 音效（推荐）
+### 自定义音效（推荐）
 
-使用 Linux freedesktop 默认音效：
+使用项目自带的提示音文件：
 
 | 事件 | 触发时机 | 声音 |
 |------|----------|------|
 | `Notification` | 需要输入时 | message.wav |
 | `Stop` | 完成响应时 | complete.wav |
 
-### 官方推荐声音
+### 系统默认声音
 
-使用系统默认提示音：
+使用系统默认提示音（无需额外文件）：
 
 | 事件 | 触发时机 | 声音 |
 |------|----------|------|
@@ -30,7 +30,7 @@
 
 ## 安装方式
 
-### 方式一：Freedesktop 音效（推荐）
+### 方式一：自定义音效（推荐）
 
 ```bash
 # 1. 复制工具文件到 Claude 配置目录
@@ -43,7 +43,7 @@ cp -r tools/claude-code-notifications/* ~/.claude/tools/claude-code-notification
 # macOS:   将 configs/custom.macos.json 中的 hooks 部分添加到 settings.json
 ```
 
-### 方式二：官方推荐声音
+### 方式二：系统默认声音
 
 直接使用系统声音，无需额外文件：
 
@@ -74,9 +74,9 @@ cp -r tools/claude-code-notifications/* ~/.claude/tools/claude-code-notification
 claude-code-notifications/
 ├── README.md                    # 本文档
 ├── sounds/                      # 音效文件
-│   ├── message.wav              # 通知提示音（Windows）
+│   ├── message.wav              # 通知提示音
 │   ├── message.oga              # 通知提示音（Linux 原始）
-│   ├── complete.wav             # 完成提示音（Windows）
+│   ├── complete.wav             # 完成提示音
 │   └── complete.oga             # 完成提示音（Linux 原始）
 ├── configs/                     # 配置文件
 │   ├── custom.windows.json      # Windows 自定义配置（推荐）
@@ -93,8 +93,8 @@ claude-code-notifications/
 ## 测试声音
 
 ```bash
-# Windows
-powershell -c "(New-Object Media.SoundPlayer \"$env:USERPROFILE\.claude\tools\claude-code-notifications\sounds\message.wav\").PlaySync()"
+# Windows（在 Terminal/Git Bash 中）
+powershell.exe -c "(New-Object Media.SoundPlayer 'C:/Users/YOUR_USERNAME/.claude/tools/claude-code-notifications/sounds/message.wav').PlaySync()"
 
 # Linux
 paplay /usr/share/sounds/freedesktop/stereo/message.oga
@@ -117,6 +117,20 @@ afplay ~/.claude/tools/claude-code-notifications/sounds/message.oga
 ---
 
 ## 注意事项
+
+### Windows Terminal / Git Bash 用户
+
+由于 hooks 在 bash 环境中执行，需要注意：
+
+1. **路径格式**：使用正斜杠 `/` 而非反斜杠 `\`
+2. **引号格式**：PowerShell 命令需要用双引号包裹，内部路径用单引号
+
+正确示例：
+```json
+"command": "powershell.exe -c \"(New-Object Media.SoundPlayer 'C:/Users/xxx/sounds/complete.wav').PlaySync()\""
+```
+
+### 各平台支持
 
 - **Windows**: 使用 wav 格式，原生支持
 - **Linux**: 直接使用系统音效 `/usr/share/sounds/freedesktop/stereo/`

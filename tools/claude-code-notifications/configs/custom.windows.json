@@ -1,15 +1,16 @@
 {
+  "_comment": "将 YOUR_USERNAME 替换为你的 Windows 用户名",
   "hooks": {
     "Notification": [{
       "hooks": [{
         "type": "command",
-        "command": "powershell.exe -c \"(New-Object Media.SoundPlayer \\\"$env:USERPROFILE\\.claude\\tools\\claude-code-notifications\\sounds\\message.wav\\\").PlaySync()\""
+        "command": "powershell.exe -c \"(New-Object Media.SoundPlayer 'C:/Users/YOUR_USERNAME/.claude/tools/claude-code-notifications/sounds/message.wav').PlaySync()\""
       }]
     }],
     "Stop": [{
       "hooks": [{
         "type": "command",
-        "command": "powershell.exe -c \"(New-Object Media.SoundPlayer \\\"$env:USERPROFILE\\.claude\\tools\\claude-code-notifications\\sounds\\complete.wav\\\").PlaySync()\""
+        "command": "powershell.exe -c \"(New-Object Media.SoundPlayer 'C:/Users/YOUR_USERNAME/.claude/tools/claude-code-notifications/sounds/complete.wav').PlaySync()\""
       }]
     }]
   }
