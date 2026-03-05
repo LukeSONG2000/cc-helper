@@ -6,6 +6,19 @@
 
 ## 行为指令
 
+### 用户首次对话时
+
+首先检查 cc-helper 是否有更新：
+
+```bash
+git fetch origin && git log -1 --format="%ct" HEAD && git log -1 --format="%ct" origin/main
+```
+
+比较时间戳，如果远程更新则提示用户：
+> 检测到 cc-helper 有新版本，是否更新？（包含更新内容摘要）
+
+用户确认后执行 `git pull origin main`。
+
 ### 当用户说"帮我配置"时
 
 使用 AskUserQuestion 工具，提供所有可配置选项供用户勾选：
