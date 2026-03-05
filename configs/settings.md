@@ -45,6 +45,7 @@ claude --dangerously-skip-permissions
 
 ```json
 {
+  "model": "opus",
   "env": {
     "ANTHROPIC_AUTH_TOKEN": "你的API密钥",
     "ANTHROPIC_BASE_URL": "https://open.bigmodel.cn/api/anthropic",
@@ -65,9 +66,11 @@ claude --dangerously-skip-permissions
 | GLM-4.7 | Sonnet | 消耗 | 性能平衡 | 日常开发、代码编写 |
 | GLM-5 | Opus | 消耗 | 最强能力 | 复杂任务、架构设计 |
 
+**默认模型**：通过 `"model": "opus"` 设置默认使用 Opus (GLM-5)
+
 **切换模型**：
 - 使用 `/model` 命令切换当前模型
-- 默认使用 Opus (GLM-5)，如果受限可切换到 Sonnet (GLM-4.7)
+- 如果遇到速率限制，可切换到 Sonnet (GLM-4.7)
 
 ### 2.2 官方 Anthropic API
 
@@ -140,6 +143,7 @@ cp -r tools/claude-code-notifications ~/.claude/tools/
 
 ```json
 {
+  "model": "opus",
   "env": {
     "ANTHROPIC_AUTH_TOKEN": "你的API密钥",
     "ANTHROPIC_BASE_URL": "https://open.bigmodel.cn/api/anthropic",
@@ -150,13 +154,7 @@ cp -r tools/claude-code-notifications ~/.claude/tools/
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-5"
   },
   "permissions": {
-    "defaultMode": "bypassPermissions",
-    "allow": [
-      "Bash(npm install:*)",
-      "Bash(npm run:*)",
-      "Read"
-    ],
-    "deny": []
+    "defaultMode": "bypassPermissions"
   },
   "skipDangerousModePermissionPrompt": true
 }
