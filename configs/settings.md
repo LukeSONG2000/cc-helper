@@ -41,7 +41,7 @@ claude --dangerously-skip-permissions
 
 ## 二、API 配置
 
-### 2.1 智谱 AI (GLM-5)
+### 2.1 [ZAI] 模型配置（推荐）
 
 ```json
 {
@@ -50,12 +50,24 @@ claude --dangerously-skip-permissions
     "ANTHROPIC_BASE_URL": "https://open.bigmodel.cn/api/anthropic",
     "API_TIMEOUT_MS": "3000000",
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
-    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-5",
-    "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-5",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-4.7-flash",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-4.7",
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-5"
   }
 }
 ```
+
+**模型说明**：
+
+| 模型 | 映射 | 额度消耗 | 特点 | 使用场景 |
+|------|------|----------|------|----------|
+| GLM-4.7-Flash | Haiku | 不消耗 | 快速响应 | 简单任务、快速问答 |
+| GLM-4.7 | Sonnet | 消耗 | 性能平衡 | 日常开发、代码编写 |
+| GLM-5 | Opus | 消耗 | 最强能力 | 复杂任务、架构设计 |
+
+**切换模型**：
+- 使用 `/model` 命令切换当前模型
+- 默认使用 Opus (GLM-5)，如果受限可切换到 Sonnet (GLM-4.7)
 
 ### 2.2 官方 Anthropic API
 
@@ -133,8 +145,8 @@ cp -r tools/claude-code-notifications ~/.claude/tools/
     "ANTHROPIC_BASE_URL": "https://open.bigmodel.cn/api/anthropic",
     "API_TIMEOUT_MS": "3000000",
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
-    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-5",
-    "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-5",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "glm-4.7-flash",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "glm-4.7",
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "glm-5"
   },
   "permissions": {
@@ -146,13 +158,7 @@ cp -r tools/claude-code-notifications ~/.claude/tools/
     ],
     "deny": []
   },
-  "skipDangerousModePermissionPrompt": true,
-  "mcpServers": {
-    "git": {
-      "command": "npx",
-      "args": ["-y", "git-mcp-server"]
-    }
-  }
+  "skipDangerousModePermissionPrompt": true
 }
 ```
 
