@@ -1,10 +1,10 @@
-# Claude Code 配置助手
+# cc-helper
 
 快速配置 Claude Code 开发环境的文档集合。
 
 ---
 
-## 使用配置助手
+## 使用 cc-helper
 
 克隆项目后，进入目录并启动 Claude：
 
@@ -14,8 +14,6 @@ claude
 ```
 
 然后告诉 Claude：**"帮我配置"**
-
-Claude 会读取 `CLAUDE.md` 并引导你选择需要配置的项目。
 
 ---
 
@@ -32,6 +30,7 @@ Claude 会读取 `CLAUDE.md` 并引导你选择需要配置的项目。
 |------|------|
 | `/init` | 初始化项目 CLAUDE.md |
 | `/terminal-setup` | 配置终端集成 |
+| `/model` | 切换模型 |
 | `/resume` | 选择历史会话 |
 | `/rename` | 重命名当前对话 |
 
