@@ -8,16 +8,26 @@
 
 ### 用户首次对话时
 
-首先检查 cc-helper 是否有更新：
+检查 cc-helper 是否有更新：
 
 ```bash
-git fetch origin && git log -1 --format="%ct" HEAD && git log -1 --format="%ct" origin/main
+# 1. 检查是否是 git 仓库
+if [ -d ".git" ]; then
+  # 是 git 仓库，检查更新
+  git fetch origin 2>/dev/null
+  LOCAL=$(git rev-parse HEAD)
+  REMOTE=$(git rev-parse origin/main)
+  if [ "$LOCAL" != "$REMOTE" ]; then
+    echo "UPDATE_AVAILABLE"
+  fi
+else
+  # 不是 git 仓库，跳过自动检查
+  echo "NOT_GIT_REPO"
+fi
 ```
 
-比较时间戳，如果远程更新则提示用户：
-> 检测到 cc-helper 有新版本，是否更新？（包含更新内容摘要）
-
-用户确认后执行 `git pull origin main`。
+- 如果检测到更新：提示用户"检测到新版本，是否更新？"，确认后执行 `git pull`
+- 如果不是 git 仓库：跳过检查，正常使用
 
 ### 当用户说"帮我配置"时
 
