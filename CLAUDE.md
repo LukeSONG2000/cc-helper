@@ -11,23 +11,22 @@
 检查 cc-helper 是否有更新：
 
 ```bash
-# 1. 检查是否是 git 仓库
-if [ -d ".git" ]; then
-  # 是 git 仓库，检查更新
-  git fetch origin 2>/dev/null
-  LOCAL=$(git rev-parse HEAD)
-  REMOTE=$(git rev-parse origin/main)
-  if [ "$LOCAL" != "$REMOTE" ]; then
-    echo "UPDATE_AVAILABLE"
-  fi
-else
-  # 不是 git 仓库，跳过自动检查
-  echo "NOT_GIT_REPO"
+# 读取本地版本
+LOCAL_VERSION=$(cat VERSION 2>/dev/null || echo "unknown")
+
+# 获取远程版本（GitHub raw 文件）
+REMOTE_VERSION=$(curl -sL "https://raw.githubusercontent.com/LukeSONG2000/cc-helper/main/VERSION" 2>/dev/null || echo "")
+
+# 比较
+if [ -n "$REMOTE_VERSION" ] && [ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]; then
+  echo "UPDATE_AVAILABLE:$LOCAL_VERSION->$REMOTE_VERSION"
 fi
 ```
 
-- 如果检测到更新：提示用户"检测到新版本，是否更新？"，确认后执行 `git pull`
-- 如果不是 git 仓库：跳过检查，正常使用
+- 如果检测到更新：提示用户"发现新版本 X，当前版本 Y，是否更新？"
+- 用户确认后：
+  - git 用户：执行 `git pull`
+  - 非 git 用户：提供 GitHub 下载链接，或下载 zip 解压覆盖
 
 ### 当用户说"帮我配置"时
 
