@@ -16,7 +16,31 @@
 - [ ] 权限跳过 - 跳过命令确认，提高效率
 - [ ] [ZAI] 模型配置 - GLM-4.7-Flash(Haiku)/GLM-4.7(Sonnet)/GLM-5(Opus)
 - [ ] GitHub 配置 - Token 创建、MCP Git 服务
+- [ ] 更新 cc-helper - 检查并拉取最新配置
 ```
+
+### 更新 cc-helper 功能
+
+当用户选择"更新 cc-helper"时，执行以下步骤：
+
+```bash
+# 1. 获取远程更新信息
+git fetch origin
+
+# 2. 比较本地和远程的提交时间
+LOCAL_TIME=$(git log -1 --format=%ct HEAD)
+REMOTE_TIME=$(git log -1 --format=%ct origin/main)
+
+# 3. 如果远程更新，执行拉取
+if [ "$REMOTE_TIME" -gt "$LOCAL_TIME" ]; then
+  echo "发现新版本，正在更新..."
+  git pull origin main
+else
+  echo "已是最新版本"
+fi
+```
+
+更新后告诉用户更新的内容（通过 `git log --oneline HEAD@{1}..HEAD` 查看）。
 
 ### [ZAI] 模型配置说明
 
