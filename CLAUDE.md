@@ -1,34 +1,27 @@
-# Claude Code Helper - 配置入口
+# cc-helper
 
-> 此文件是 Claude Code 配置助手的主入口。运行 `claude` 后，Claude 会读取此文件并引导你完成配置。
+> 此文件是 cc-helper 的主入口。运行 `claude` 后，Claude 会读取此文件并引导你完成配置。
 
 ---
 
 ## 行为指令
 
-### 用户首次对话时
+### 当用户打招呼或没有明确需求时
 
-检查 cc-helper 是否有更新：
+使用 AskUserQuestion 提供三个选项供用户勾选：
 
-```bash
-# 读取本地版本
-LOCAL_VERSION=$(cat VERSION 2>/dev/null || echo "unknown")
+- 配置助手 - 配置提示音、远程控制、API 模型等
+- Claude Code 使用帮助 - 常用命令、快捷键、技巧提示
+- 更新 cc-helper - 更新到最新版本
 
-# 获取远程版本（GitHub raw 文件）
-REMOTE_VERSION=$(curl -sL "https://raw.githubusercontent.com/LukeSONG2000/cc-helper/main/VERSION" 2>/dev/null || echo "")
+**如果用户勾选了"配置助手"**，进入二级菜单：
+- 自定义提示音 - 当 Claude 完成或需要输入时播放声音
+- 远程控制 - 通过 Happy CLI 远程控制 Claude
+- 权限跳过 - 跳过命令确认，提高效率
+- [ZAI] 模型配置 - GLM-4.7-Flash(Haiku)/GLM-4.7(Sonnet)/GLM-5(Opus)
+- GitHub 配置 - Token 创建、MCP Git 服务
 
-# 比较
-if [ -n "$REMOTE_VERSION" ] && [ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]; then
-  echo "UPDATE_AVAILABLE:$LOCAL_VERSION->$REMOTE_VERSION"
-fi
-```
-
-- 如果检测到更新：提示用户"发现新版本 X，当前版本 Y，是否更新？"
-- 用户确认后：
-  - git 用户：执行 `git pull`
-  - 非 git 用户：提供 GitHub 下载链接，或下载 zip 解压覆盖
-
-### 当用户说"帮我配置"时
+### 当用户明确说"帮我配置"时
 
 使用 AskUserQuestion 工具，提供所有可配置选项供用户勾选：
 
@@ -38,7 +31,6 @@ fi
 - [ ] 权限跳过 - 跳过命令确认，提高效率
 - [ ] [ZAI] 模型配置 - GLM-4.7-Flash(Haiku)/GLM-4.7(Sonnet)/GLM-5(Opus)
 - [ ] GitHub 配置 - Token 创建、MCP Git 服务
-- [ ] 更新 cc-helper - 检查并拉取最新配置
 ```
 
 ### 更新 cc-helper 功能
@@ -79,18 +71,6 @@ fi
 > **切换模型**：使用 `/model` 命令选择模型
 > - 默认使用 Opus (GLM-5)
 > - 如果遇到速率限制，可切换到 Sonnet (GLM-4.7)
-
-### 当用户打招呼或没有明确需求时
-
-告诉用户你能做到什么：
-
-> 我是 Claude Code 配置助手，可以帮你：
-> - 配置提示音，让你不错过任何响应
-> - 配置远程控制，随时随地使用 Claude
-> - 优化权限设置，提高使用效率
-> - 配置 API 和 GitHub 集成
->
-> 说 **"帮我配置"** 开始，或直接告诉我你需要什么。
 
 ### /terminal-setup 使用说明
 
