@@ -31,6 +31,7 @@ Claude 会读取 `CLAUDE.md` 并引导你选择需要配置的项目。
 | 命令 | 说明 |
 |------|------|
 | `/init` | 初始化项目 CLAUDE.md |
+| `/terminal-setup` | 配置终端集成 |
 | `/resume` | 选择历史会话 |
 | `/rename` | 重命名当前对话 |
 
