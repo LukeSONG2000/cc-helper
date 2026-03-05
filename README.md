@@ -40,3 +40,5 @@ claude
 
 - [Claude Code 官方文档](https://docs.anthropic.com/en/docs/claude-code)
 - [智谱 AI 编码工具助手](https://docs.bigmodel.cn/cn/coding-plan/extension/coding-tool-helper)
+
+<!-- Last updated: 2026-03-05 -->
